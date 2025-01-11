@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+  <title>Property Details</title>
+</head>
+<body>
+  <header>
+    <%- include('../partials/header'); %>
+  </header>
+
+  <div class="hero page-inner overlay" style="background-image: url('/images/hero_bg_3.jpg')">
+    <div class="container text-center">
+      <h1 class="heading" id="property-name">Loading...</h1>
+    </div>
+  </div>
+
+  <div class="section pb-0">
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col-lg-6">
+          <img src="/images/placeholder.jpg" id="property-image" alt="Property Image" class="img-fluid" />
+        </div>
+        <div class="col-lg-6">
+          <h2 id="property-name-details" class="property-item property-content price" style="color: #001B3F; font-weight: 700;">Loading...</h2>
+          <p id="property-description" class="text-black-50">Loading...</p>
+          <div class="text">
+            <h3 style="color: #001B3F; font-weight: 700;">Locations & Cities</h3>
+            <p id="property-locations" class="text-black-50">Loading...</p>
+          </div>
+          <div class="text">
+            <h3 style="color: #001B3F; font-weight: 700;">Amenities</h3>
+            <p id="property-amenities" class="text-black-50">Loading...</p>
+          </div>
+          <div class="text">
+            <h3 style="color: #001B3F; font-weight: 700;">Prominent Landmarks</h3>
+            <p id="property-landmarks" class="text-black-50">Loading...</p>
+          </div>
+          <div class="text">
+            <h3 style="color: #001B3F; font-weight: 700;">Unit Plans</h3>
+            <p id="property-units" class="text-black-50">Loading...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async function () {
+      const propertyId = "<%= propertyId %>";
+
+      try {
+        // Fetch property details using the API
+        const response = await fetch('http://localhost:3000/api/getpropertybyid', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: propertyId }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch property details');
+        }
+
+        const result = await response.json();
+        const property = result?.data;
+
+        if (!property) {
+          throw new Error('Property not found');
+        }
+
+        // Populate the page with property details
+        document.getElementById('property-name').textContent = property.property_name || 'N/A';
+        document.getElementById('property-name-details').textContent = property.property_name || 'N/A';
+        document.getElementById('property-description').textContent = property.short_description || 'N/A';
+        document.getElementById('property-locations').textContent = property.location_and_cities || 'N/A';
+        document.getElementById('property-amenities').textContent = property.amenities || 'N/A';
+        document.getElementById('property-landmarks').textContent = property.prominent_landmarks || 'N/A';
+        document.getElementById('property-units').textContent = property.unit_plans || 'N/A';
+
+        const imagePath = property.image_url && property.image_url.startsWith('images/')
+          ? `/${property.image_url}`
+          : '/images/placeholder.jpg';
+        console.log('Resolved Image Path:', imagePath);
+        document.getElementById('property-image').src = imagePath;
+      } catch (error) {
+        console.error('Error loading property details:', error);
+        alert('Failed to load property details. Please try again later.');
+      }
+    });
+  </script>
+</body>
+</html>

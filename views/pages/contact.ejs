@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+   
+</head>
+<body>
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+    <div
+    class="hero page-inner overlay"
+    style="background-image: url('images/hero_bg_1.jpg')"
+  >
+    <div class="container">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-lg-9 text-center mt-5">
+          <h1 class="heading" data-aos="fade-up">Contact Us</h1>
+          <h6 class="fs-4 p-0 text-white heading">Get in touch</h6>
+          <nav
+            aria-label="breadcrumb"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <ol class="breadcrumb text-center justify-content-center">
+              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li
+                class="breadcrumb-item active text-white-50"
+                aria-current="page"
+              >
+                Contact
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container">
+      <div class="row">
+        <div
+          class="col-lg-4 mb-5 mb-lg-0"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          <div class="contact-info">
+            <div class="address mt-2">
+              <i class="icon-room"></i>
+              <h4 class="mb-2">Location:</h4>
+              <p>
+                <a href="https://www.google.com/maps/search/?api=1&query=3rd+floor+%23+5-109%2F3%2FB%2F1%2C+Jubilee+Hills+Road%2C+opp.+J+R+C%2C+Rai+Durg%2C+500033" target="_blank">
+                  3rd floor # 5-109/3/B/1, Jubilee Hills Road,<br> opp. J R C, Rai Durg, 500033
+                </a>
+              </p>
+              
+            </div>
+
+            <div class="open-hours mt-4">
+              <i class="icon-clock-o"></i>
+              <h4 class="mb-2">Open Hours:</h4>
+              <p>
+                Monday-Saturday:<br />
+                10:00 AM - 08:00 PM
+              </p>
+            </div>
+
+            <div class="email mt-4">
+              <i class="icon-envelope"></i>
+              <h4 class="mb-2">Email:</h4>
+              <p>
+                <a href="mailto:sales@samprapthi.com">sales@samprapthi.com</a>
+              </p>
+            </div>
+            
+
+            <div class="phone mt-4">
+              <i class="icon-phone"></i>
+              <h4 class="mb-2">Call:</h4>
+              <p ><a href="tel://11234567890" ><span class="text-secondary"></span>+91 90009 12999</span></a></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
+          <form id="contactForm" class="needs-validation" novalidate>
+            <div class="row">
+              <div class="col-6 mb-3">
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  class="form-control"
+                  placeholder="Your Name"
+                  required
+                />
+                <div class="invalid-feedback">Please enter your name.</div>
+              </div>
+              <div class="col-6 mb-3">
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="form-control"
+                  placeholder="Your Email"
+                  required
+                />
+                <div class="invalid-feedback">Please enter a valid email address.</div>
+              </div>
+              <div class="col-6 mb-3">
+                <input
+                  type="tel"
+                  id="phone_number"
+                  name="phone"
+                  class="form-control"
+                  placeholder="Phone number"
+                  required
+                />
+                <div class="invalid-feedback">Please enter a phone number.</div>
+              </div>
+              <div class="col-6 mb-3">
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  class="form-control"
+                  placeholder="Subject"
+                  required
+                />
+                <div class="invalid-feedback">Please enter a subject.</div>
+              </div>
+              <div class="col-12 mb-3">
+                <textarea
+                  id="message"
+                  name="message"
+                  cols="30"
+                  rows="7"
+                  class="form-control"
+                  placeholder="Message"
+                  required
+                ></textarea>
+                <div class="invalid-feedback">Please enter a message.</div>
+              </div>
+              <div class="g-recaptcha mb-3" data-sitekey="6Letn3kqAAAAAExV9wsEXa3LpIza6Rg2rcaj3KlP"></div>
+              <div id="recaptchaError2" style="color: red; margin-top: 8px;"></div>
+              <div class="col-12 py-3">
+                <input
+                  type="submit"
+                  value="Send Message"
+                  class="btn btn-primary"
+                  id="submitButton"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+<!-- footer -->
+<div class="section ">
+<div class="row justify-content-center footer-cta " data-aos="fade-up">
+  <div class="col-lg-7 mx-auto text-center">
+    <h2 class="">Premier Residences Explore our handpicked properties that offer exceptional quality and luxurious living.</h2>
+    
+    <p class="fs-4 text-center">Find Your Perfect Home Today</p>
+     
+    <a
+      href="#"
+      class="btn btn-primary py-2 px-3 see-details-btn"
+      data-bs-toggle="modal"
+      data-bs-target="#buyPropertyModal">
+    Get Quote
+    </a>
+    </p>
+</div>
+</div>
+
+<!-- modal and Script -->
+<div class="custom-modal modal fade" id="buyPropertyModal" tabindex="-1" aria-labelledby="buyPropertyModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title py-3 fs-4" id="buyPropertyModalLabel">Buy Property</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <form id="buyPropertyForm" class="needs-validation" novalidate onsubmit="return validateFormAndRecaptcha();">
+        <div class="form-group">
+          <label for="name" class="fs-5">First Name</label>
+          <input type="text" class="form-control" id="name" required>
+          <div class="invalid-feedback">Please enter your name.</div>
+        </div>
+        <div class="form-group">
+          <label for="email" class="fs-5">Email</label>
+          <input type="email" class="form-control" id="email" required>
+          <div class="invalid-feedback">Please enter a valid email.</div>
+        </div>
+        <div class="form-group">
+          <label for="phone" class="fs-5">Phone</label>
+          <input type="tel" class="form-control" id="phone_number" required>
+          <div class="invalid-feedback">Please enter your phone number.</div>
+        </div>
+        <div class="form-group">
+          <label for="message" class="fs-5">Message</label>
+          <textarea class="form-control" id="message" rows="3" required></textarea>
+          <div class="invalid-feedback">Please enter a message.</div>
+        </div>
+        
+        <div class="g-recaptcha" data-sitekey="6Letn3kqAAAAAExV9wsEXa3LpIza6Rg2rcaj3KlP"></div>
+        <br/>
+        <div id="recaptchaError" style="color: red; margin-top: 8px;"></div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+<!-- Include jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<script>
+  (function () {
+    'use strict';
+  
+    $('#contactForm, #buyPropertyForm').on('submit', function (event) {
+      if (!this.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      this.classList.add('was-validated');
+    });
+  })();
+</script>
+
+<script>
+  function handleFormSubmission(formId, recaptchaErrorId) {
+    $(formId).on('submit', function (e) {
+      e.preventDefault();
+
+   
+      const recaptchaResponse = grecaptcha.getResponse();
+      if (recaptchaResponse.length === 0) {
+        $(recaptchaErrorId).text('Please complete the reCAPTCHA.');
+        return;
+      } else {
+        $(recaptchaErrorId).text('');
+      }
+
+      
+      const formData = {
+        name: $(`${formId} #name`).val(),
+        email: $(`${formId} #email`).val(),
+        phone_number: $(`${formId} #phone_number`).val(),
+        subject: $(`${formId} #subject`).val(),
+        message: $(`${formId} #message`).val(),
+        'g-recaptcha-response': recaptchaResponse,
+      };
+
+      
+      $.ajax({
+        url: 'http://20.81.241.11:3000/api/send-inquiry',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(formData),
+        success: function (data) {
+          alert('Message sent successfully!');
+          $(formId)[0].reset();
+          grecaptcha.reset();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          alert('Error sending message, please try again later.');
+          console.error('Error:', textStatus, errorThrown);
+        },
+      });
+    });
+  }
+
+ 
+  handleFormSubmission('#contactForm', '#recaptchaError2');
+  handleFormSubmission('#buyPropertyForm', '#recaptchaError');
+</script>
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script src="../../public/js/bootstrap.bundle.min.js"></script>
+<script src="../../public/js/tiny-slider.js"></script>
+<script src="../../public/js/aos.js"></script>
+<script src="../../public/js/navbar.js"></script>
+<script src="../../public/js/counter.js"></script>
+<script src="../../public/js/style.js"></script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+  <title>Properties (Client-Side Rendering)</title>
+</head>
+
+<body>
+  <header>
+    <%- include('../partials/header'); %>
+  </header>
+
+  <!-- Hero Section -->
+  <div class="hero page-inner overlay" style="background-image: url('images/hero_bg_1.jpg')">
+    <div class="container">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-lg-9 text-center mt-5">
+          <h1 class="heading" data-aos="fade-up">Properties</h1>
+          <h6 class="fs-4 p-0 text-white heading">
+            Experience the essence of refined living with Samprapthi—where your ideal home awaits.
+          </h6>
+          <nav aria-label="breadcrumb" data-aos="fade-up" data-aos-delay="200">
+            <ol class="breadcrumb text-center justify-content-center">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active text-white-50" aria-current="page">Properties</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Hero Section -->
+
+  <!-- Section: Featured Properties -->
+  <div class="section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 text-center mx-auto">
+          <h2 class="font-weight-bold text-primary heading">Featured Properties</h2>
+          <h6 class="fs-4 p-0 heading">Discover Your Dream Home with Samprapthi Properties</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Section -->
+
+  <!-- Properties Section -->
+  <div class="section section-properties">
+    <div class="container">
+      <div class="row" id="property-list">
+        <!-- Property cards will be dynamically injected here -->
+      </div>
+    </div>
+  </div>
+  <!-- End Properties Section -->
+
+  <!-- Buy Property Modal -->
+  <div class="custom-modal modal fade" id="buyPropertyModal" tabindex="-1" aria-labelledby="buyPropertyModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title py-3 fs-4" id="buyPropertyModalLabel">Buy Property</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="buyPropertyForm" class="needs-validation" novalidate>
+            <input type="hidden" id="property_id" name="property_id" />
+            <div class="form-group">
+              <label for="name" class="fs-5">First Name</label>
+              <input type="text" class="form-control" id="name" required>
+              <div class="invalid-feedback">Please enter your name.</div>
+            </div>
+            <div class="form-group">
+              <label for="email" class="fs-5">Email</label>
+              <input type="email" class="form-control" id="email" required>
+              <div class="invalid-feedback">Please enter a valid email.</div>
+            </div>
+            <div class="form-group">
+              <label for="phone" class="fs-5">Phone</label>
+              <input type="text" class="form-control" id="phone" required>
+              <div class="invalid-feedback">Please enter your phone number.</div>
+            </div>
+            <div class="form-group">
+              <label for="message" class="fs-5">Message</label>
+              <textarea class="form-control" id="message" rows="3" required></textarea>
+              <div class="invalid-feedback">Please enter a message.</div>
+            </div>
+            <div class="g-recaptcha" data-sitekey="6Letn3kqAAAAAExV9wsEXa3LpIza6Rg2rcaj3KlP"></div>
+            <br />
+            <div id="recaptchaError" style="color: red; margin-top: 8px;"></div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Modal -->
+
+  <!-- Footer -->
+  <footer>
+    <%- include('../partials/footer'); %>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script src="../../public/js/bootstrap.bundle.min.js"></script>
+  <script src="../../public/js/tiny-slider.js"></script>
+  <script src="../../public/js/aos.js"></script>
+  <script src="../../public/js/navbar.js"></script>
+  <script src="../../public/js/counter.js"></script>
+  <script src="../../public/js/style.js"></script>
+
+  <script>
+    // Fetch and display properties
+    document.addEventListener('DOMContentLoaded', function () {
+      fetch('/api/get_all_properties', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(response => response.json())
+        .then(data => {
+          const propertyArray = data.data;
+          const listContainer = document.getElementById('property-list');
+
+          if (!propertyArray || propertyArray.length === 0) {
+            listContainer.innerHTML = '<p>No properties found.</p>';
+            return;
+          }
+
+          propertyArray.forEach(property => {
+            const colDiv = document.createElement('div');
+            colDiv.className = 'col-xs-12 col-sm-6 col-md-6 col-lg-4';
+
+            const propertyItem = document.createElement('div');
+            propertyItem.className = 'property-item';
+
+            const imagePath = property.image_url && property.image_url.startsWith('images/')
+              ? property.image_url
+              : `images/${property.image_url}`;
+
+            propertyItem.innerHTML = `
+              <img
+                src="${imagePath}"
+                alt="${property.alt_text || 'Property Image'}"
+                style="width: 411px; height: 411px;"
+                class="img-fluid"
+              />
+              <div class="property-content" style="width: 411px; height: 274px;">
+                <div class="price mb-2"><span>${property.property_name}</span></div>
+                <div>
+                  <span class="d-block mb-2 text-black-50">${property.short_description || ''}</span>
+                  <span class="city d-block mb-3">${property.city || ''}</span>
+                  <a
+                    href="#"
+                    class="btn btn-primary py-2 px-3 see-details-btn"
+                    data-bs-toggle="modal"
+                    data-bs-target="#buyPropertyModal"
+                    data-property-id="${property.id}"
+                  >
+                    See details
+                  </a>
+                </div>
+              </div>
+            `;
+
+            colDiv.appendChild(propertyItem);
+            listContainer.appendChild(colDiv);
+          });
+
+          // Add event listener to set property ID in modal
+          document.querySelectorAll('.see-details-btn').forEach(button => {
+            button.addEventListener('click', () => {
+              const propertyId = button.getAttribute('data-property-id');
+              document.getElementById('property_id').value = propertyId;
+            });
+          });
+        })
+        .catch(err => {
+          console.error('Fetch error:', err);
+          document.getElementById('property-list').innerHTML =
+            '<p style="color:red;">Error fetching properties. Please try again later.</p>';
+        });
+    });
+
+    // Form submission handler for contact form
+    document.addEventListener('DOMContentLoaded', function () {
+      const buyPropertyForm = document.getElementById('buyPropertyForm');
+
+      buyPropertyForm.addEventListener('submit', async function (e) {
+        e.preventDefault(); // Prevent default form submission
+
+        const firstName = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const message = document.getElementById('message').value;
+        const propertyId = document.getElementById('property_id').value;
+
+        const recaptchaResponse = grecaptcha.getResponse();
+        if (!recaptchaResponse) {
+          document.getElementById('recaptchaError').innerText = 'Please complete the reCAPTCHA.';
+          return;
+        }
+
+        const payload = {
+          first_name: firstName,
+          email: email,
+          phone: phone,
+          message: message,
+          recaptcha: recaptchaResponse,
+        };
+
+        try {
+          const response = await fetch('http://localhost:3000/api/add_contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+
+          if (!response.ok) {
+            throw new Error(`Server error: ${response.status}`);
+          }
+
+          // Redirect to the property detail page
+          window.location.href = `/property_detail/${propertyId}`;
+        } catch (error) {
+          console.error('Error submitting form:', error);
+          alert('There was an error submitting your contact details. Please try again later.');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
